@@ -102,7 +102,7 @@ function AuthTabs({ authView, setAuthView, pendingEmail, user }) {
 
       <div className="eyebrow-chip">
         <SparklesIcon />
-        <span>Intimate & Empathetic Companion</span>
+        <span>Empathetic & Loving Companion</span>
       </div>
 
       <h1>Your Private Sanctuary for Conversation.</h1>
@@ -167,8 +167,9 @@ function AuthPanel({
   onLogin,
   onVerify,
   setAuthView,
+  setError,
 }) {
-  const [signupForm, setSignupForm] = useState({ email: "", password: "" });
+  const [signupForm, setSignupForm] = useState({ email: "", password: "", is18Plus: null });
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [verifyCode, setVerifyCode] = useState("");
@@ -223,6 +224,14 @@ function AuthPanel({
             className="auth-form"
             onSubmit={(event) => {
               event.preventDefault();
+              if (signupForm.is18Plus === null || signupForm.is18Plus === undefined) {
+                if (setError) setError("Please answer whether you are 18+ or not to continue.");
+                return;
+              }
+              if (signupForm.is18Plus === false) {
+                if (setError) setError("You must be 18 years of age or older to create an account.");
+                return;
+              }
               onSignup(signupForm);
             }}
           >
@@ -265,10 +274,73 @@ function AuthPanel({
               </div>
             </label>
 
-            <button className="primary-button submit-btn" type="submit" disabled={loading}>
+            {/* Age Confirmation (18+) */}
+            <div className="age-verification-group">
+              <div className="age-question-header">
+                <span className="input-label">Age Confirmation</span>
+                <span className="age-badge-req">Required</span>
+              </div>
+              <p className="age-question-sub">Are you 18 years of age or older?</p>
+
+              <div className="age-options-grid" role="radiogroup" aria-label="Are you 18 or older?">
+                <button
+                  type="button"
+                  className={`age-choice-btn ${signupForm.is18Plus === true ? "selected-yes" : ""}`}
+                  onClick={() => {
+                    setSignupForm((current) => ({ ...current, is18Plus: true }));
+                    if (error && error.includes("18")) {
+                      if (setError) setError("");
+                    }
+                  }}
+                  role="radio"
+                  aria-checked={signupForm.is18Plus === true}
+                >
+                  <span className="age-radio-ring">
+                    {signupForm.is18Plus === true && <span className="age-radio-inner" />}
+                  </span>
+                  <div className="age-choice-text">
+                    <strong>Yes, I am 18+</strong>
+                    <small>I meet the age requirement</small>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  className={`age-choice-btn ${signupForm.is18Plus === false ? "selected-no" : ""}`}
+                  onClick={() => {
+                    setSignupForm((current) => ({ ...current, is18Plus: false }));
+                  }}
+                  role="radio"
+                  aria-checked={signupForm.is18Plus === false}
+                >
+                  <span className="age-radio-ring">
+                    {signupForm.is18Plus === false && <span className="age-radio-inner danger" />}
+                  </span>
+                  <div className="age-choice-text">
+                    <strong>No, I am under 18</strong>
+                    <small>Access is restricted</small>
+                  </div>
+                </button>
+              </div>
+
+              {signupForm.is18Plus === false && (
+                <div className="age-restriction-notice" role="alert">
+                  <span className="age-notice-icon">⚠️</span>
+                  <div className="age-notice-body">
+                    <strong>Access Restricted:</strong> You must be 18 years of age or older to create an account and access this lounge.
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <button
+              className="primary-button submit-btn"
+              type="submit"
+              disabled={loading || signupForm.is18Plus === false}
+            >
               {loading ? (
                 <span className="btn-loading">
-                  <span className="mini-spinner" /> Sending code...
+                  <span className="mini-spinner" /> Creating account...
                 </span>
               ) : (
                 "Create Account"
@@ -475,12 +547,20 @@ export default function App() {
     return requestError?.response?.data?.detail || fallback;
   };
 
-  const handleSignup = async ({ email, password }) => {
+  const handleSignup = async ({ email, password, is18Plus }) => {
+    if (is18Plus !== true) {
+      setError("You must confirm that you are 18+ to create an account.");
+      return;
+    }
     setLoading(true);
     setError("");
     setNotice("");
     try {
-      const response = await api.post("/auth/signup", { email, password });
+      const response = await api.post("/auth/signup", {
+        email,
+        password,
+        is_18_plus: true,
+      });
       if (response.data.access_token) {
         storeSession(response.data.access_token, response.data.user);
       } else {
@@ -603,7 +683,11 @@ export default function App() {
       <div className="auth-layout">
         <AuthTabs
           authView={authView}
-          setAuthView={setAuthView}
+          setAuthView={(view) => {
+            setError("");
+            setNotice("");
+            setAuthView(view);
+          }}
           pendingEmail={pendingEmail}
           user={user}
         />
@@ -616,7 +700,12 @@ export default function App() {
           onSignup={handleSignup}
           onLogin={handleLogin}
           onVerify={handleVerify}
-          setAuthView={setAuthView}
+          setAuthView={(view) => {
+            setError("");
+            setNotice("");
+            setAuthView(view);
+          }}
+          setError={setError}
         />
       </div>
     </main>
