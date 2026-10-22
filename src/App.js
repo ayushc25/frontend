@@ -6,6 +6,7 @@ import "./App.css";
 const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const TOKEN_KEY = "companion_auth_token";
 const THEME_KEY = "companion_ui_theme";
+const COMPANION_KEY = "milan_selected_companion";
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -62,53 +63,58 @@ function SparklesIcon() {
   );
 }
 
-function ButterflyLogo({ size = 32 }) {
+function MilanLogo({ size = 32 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className="brand-butterfly">
+    <svg width={size} height={size} viewBox="0 0 28 28" fill="none" className="brand-butterfly">
       <defs>
-        <linearGradient id="butterflyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="milanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#ff4b72" />
-          <stop offset="50%" stopColor="#ff7b54" />
-          <stop offset="100%" stopColor="#ffb26b" />
+          <stop offset="45%" stopColor="#ff7b54" />
+          <stop offset="75%" stopColor="#f59e0b" />
+          <stop offset="100%" stopColor="#3b82f6" />
         </linearGradient>
       </defs>
+      {/* Central Heart & Wing Motif */}
       <path
-        d="M12 4c.8 0 1.5.7 1.5 1.5v13c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5v-13C10.5 4.7 11.2 4 12 4z"
-        fill="url(#butterflyGrad)"
+        d="M14 6c1.2-2.5 4.5-3.5 7-1.5 3 2.5 3 7.5-1 11.5L14 22l-6-6C4 12 4 7 7 4.5c2.5-2 5.8-1 7 1.5z"
+        fill="url(#milanGrad)"
+        fillOpacity="0.88"
       />
+      {/* Left Butterfly Wing Accent */}
       <path
-        d="M12 6c2-4 9-3 9 4 0 5-6 8-9 8V6z"
-        fill="url(#butterflyGrad)"
-        fillOpacity="0.85"
+        d="M13 8C8 3 2 5 3 11c.8 4 6 5 10 2V8z"
+        fill="url(#milanGrad)"
+        fillOpacity="0.65"
       />
+      {/* Right Bumblebee Wing Accent */}
       <path
-        d="M12 6c-2-4-9-3-9 4 0 5 6 8 9 8V6z"
-        fill="url(#butterflyGrad)"
-        fillOpacity="0.85"
+        d="M15 8c5-5 11-3 10 3-.8 4-6 5-10 2V8z"
+        fill="url(#milanGrad)"
+        fillOpacity="0.65"
       />
-      <circle cx="9.5" cy="4" r="1" fill="url(#butterflyGrad)" />
-      <circle cx="14.5" cy="4" r="1" fill="url(#butterflyGrad)" />
+      <circle cx="10" cy="5" r="1.2" fill="#ff4b72" />
+      <circle cx="18" cy="5" r="1.2" fill="#3b82f6" />
     </svg>
   );
 }
 
-function AuthTabs({ authView, setAuthView, pendingEmail, user }) {
+function AuthTabs({ authView, setAuthView, user }) {
   return (
     <div className="auth-copy">
       <div className="brand-badge">
-        <ButterflyLogo size={28} />
-        <span>Titli Companion</span>
+        <MilanLogo size={28} />
+        <span>Milan Companion Lounge</span>
       </div>
 
       <div className="eyebrow-chip">
         <SparklesIcon />
-        <span>Empathetic & Loving Companion</span>
+        <span>Private AI Sanctuary • Titli & Bhanvra</span>
       </div>
 
-      <h1>Your Private Sanctuary for Conversation.</h1>
+      <h1>Where Hearts Connect in Private Conversation.</h1>
       <p>
-        Meet Titli — a warm, charming companion who listens, responds with heart,
-        and remembers your context across private sessions.
+        Step into Milan Lounge — home to <strong>Titli</strong> (charming female companion for males) and <strong>Bhanvra</strong> (dashing male companion for females).
+        Enjoy authentic companionship, voice calls, and multimodal photo moments.
       </p>
 
       <div className="feature-grid">
@@ -116,21 +122,21 @@ function AuthTabs({ authView, setAuthView, pendingEmail, user }) {
           <div className="feature-icon">🔒</div>
           <div className="feature-content">
             <h2>Private & Secure</h2>
-            <p>Protected by cryptographic PBKDF2 password hashing & secure session tokens.</p>
+            <p>Cryptographic PBKDF2 hashing, private sessions, and 7-day auto retention.</p>
           </div>
         </article>
         <article className="feature-card">
-          <div className="feature-icon">💬</div>
+          <div className="feature-icon">🦋 & 🐝</div>
           <div className="feature-content">
-            <h2>Persistent Sessions</h2>
-            <p>Your conversation history remains organized across desktop and mobile.</p>
+            <h2>Titli & Bhanvra</h2>
+            <p>Two specialized companion personas tailored for both male and female preferences.</p>
           </div>
         </article>
         <article className="feature-card">
           <div className="feature-icon">✨</div>
           <div className="feature-content">
-            <h2>Instant Resonance</h2>
-            <p>Short, lively, flirty replies tailored to make every chat effortless.</p>
+            <h2>Voice & Photos</h2>
+            <p>Speech input & listening, photo moments, and live message reactions.</p>
           </div>
         </article>
       </div>
@@ -169,7 +175,12 @@ function AuthPanel({
   setAuthView,
   setError,
 }) {
-  const [signupForm, setSignupForm] = useState({ email: "", password: "", is18Plus: null });
+  const [signupForm, setSignupForm] = useState({
+    email: "",
+    password: "",
+    gender: "",
+    is18Plus: null,
+  });
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [verifyCode, setVerifyCode] = useState("");
@@ -181,13 +192,13 @@ function AuthPanel({
   }, [authView]);
 
   const panelSubtitle = useMemo(() => {
-    if (authView === "signup") return "Enter your email and choose a password to start chatting immediately.";
+    if (authView === "signup") return "Select your gender and choose a password to start chatting immediately.";
     if (authView === "verify") {
       return pendingEmail
         ? `Enter the verification code sent to ${pendingEmail}.`
         : "Finish signup with the verification code from your inbox.";
     }
-    return "Log in to resume your private chats with Titli.";
+    return "Log in to resume your private chats in Milan Lounge.";
   }, [authView, pendingEmail]);
 
   return (
@@ -197,10 +208,10 @@ function AuthPanel({
       <div className="panel-shell">
         <div className="panel-header">
           <div className="mobile-brand-row">
-            <ButterflyLogo size={32} />
-            <span className="brand-title">Titli Lounge</span>
+            <MilanLogo size={32} />
+            <span className="brand-title">Milan Lounge</span>
           </div>
-          <p className="eyebrow">Instant Access</p>
+          <p className="eyebrow">Instant Sanctuary</p>
           <h2>{panelTitle}</h2>
           <p className="panel-sub">{panelSubtitle}</p>
         </div>
@@ -224,8 +235,12 @@ function AuthPanel({
             className="auth-form"
             onSubmit={(event) => {
               event.preventDefault();
+              if (!signupForm.gender) {
+                if (setError) setError("Please select your gender category (Male, Female, or Others) to continue.");
+                return;
+              }
               if (signupForm.is18Plus === null || signupForm.is18Plus === undefined) {
-                if (setError) setError("Please answer whether you are 18+ or not to continue.");
+                if (setError) setError("Please confirm that you are 18+ to continue.");
                 return;
               }
               if (signupForm.is18Plus === false) {
@@ -274,6 +289,65 @@ function AuthPanel({
               </div>
             </label>
 
+            {/* Gender Selection (Required) */}
+            <div className="gender-selection-group">
+              <div className="gender-question-header">
+                <span className="input-label">Your Gender</span>
+                <span className="age-badge-req">Required</span>
+              </div>
+              <p className="age-question-sub">How do you identify?</p>
+
+              <div className="gender-options-grid" role="radiogroup" aria-label="Select your gender">
+                <button
+                  type="button"
+                  className={`gender-choice-btn ${signupForm.gender === "male" ? "selected" : ""}`}
+                  onClick={() => {
+                    setSignupForm((current) => ({ ...current, gender: "male" }));
+                    if (error && error.includes("gender")) setError("");
+                  }}
+                  role="radio"
+                  aria-checked={signupForm.gender === "male"}
+                >
+                  <span className="gender-icon">👨</span>
+                  <div className="gender-choice-text">
+                    <strong>Male</strong>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  className={`gender-choice-btn ${signupForm.gender === "female" ? "selected" : ""}`}
+                  onClick={() => {
+                    setSignupForm((current) => ({ ...current, gender: "female" }));
+                    if (error && error.includes("gender")) setError("");
+                  }}
+                  role="radio"
+                  aria-checked={signupForm.gender === "female"}
+                >
+                  <span className="gender-icon">👩</span>
+                  <div className="gender-choice-text">
+                    <strong>Female</strong>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  className={`gender-choice-btn ${signupForm.gender === "other" ? "selected" : ""}`}
+                  onClick={() => {
+                    setSignupForm((current) => ({ ...current, gender: "other" }));
+                    if (error && error.includes("gender")) setError("");
+                  }}
+                  role="radio"
+                  aria-checked={signupForm.gender === "other"}
+                >
+                  <span className="gender-icon">✨</span>
+                  <div className="gender-choice-text">
+                    <strong>Others</strong>
+                  </div>
+                </button>
+              </div>
+            </div>
+
             {/* Age Confirmation (18+) */}
             <div className="age-verification-group">
               <div className="age-question-header">
@@ -288,9 +362,7 @@ function AuthPanel({
                   className={`age-choice-btn ${signupForm.is18Plus === true ? "selected-yes" : ""}`}
                   onClick={() => {
                     setSignupForm((current) => ({ ...current, is18Plus: true }));
-                    if (error && error.includes("18")) {
-                      if (setError) setError("");
-                    }
+                    if (error && error.includes("18")) setError("");
                   }}
                   role="radio"
                   aria-checked={signupForm.is18Plus === true}
@@ -317,7 +389,7 @@ function AuthPanel({
                     {signupForm.is18Plus === false && <span className="age-radio-inner danger" />}
                   </span>
                   <div className="age-choice-text">
-                    <strong>No, I am under 18</strong>
+                    <strong>No, under 18</strong>
                     <small>Access is restricted</small>
                   </div>
                 </button>
@@ -327,7 +399,7 @@ function AuthPanel({
                 <div className="age-restriction-notice" role="alert">
                   <span className="age-notice-icon">⚠️</span>
                   <div className="age-notice-body">
-                    <strong>Access Restricted:</strong> You must be 18 years of age or older to create an account and access this lounge.
+                    <strong>Access Restricted:</strong> You must be 18 years of age or older to create an account in Milan Lounge.
                   </div>
                 </div>
               )}
@@ -388,8 +460,7 @@ function AuthPanel({
                   onChange={(event) =>
                     setLoginForm((current) => ({ ...current, password: event.target.value }))
                   }
-                  placeholder="Enter your password"
-                  minLength={8}
+                  placeholder="Your password"
                   required
                 />
                 <button
@@ -409,14 +480,14 @@ function AuthPanel({
                   <span className="mini-spinner" /> Logging in...
                 </span>
               ) : (
-                "Log In"
+                "Enter Milan Lounge"
               )}
             </button>
 
             <div className="helper-line">
-              First time with Titli?{" "}
+              Don't have an account?{" "}
               <button type="button" onClick={() => setAuthView("signup")}>
-                Create an account
+                Sign up
               </button>
             </div>
           </form>
@@ -431,7 +502,7 @@ function AuthPanel({
             }}
           >
             <div className="verify-target-badge">
-              Sending to: <strong>{pendingEmail || "your email"}</strong>
+              Verifying: <strong>{pendingEmail}</strong>
             </div>
 
             <label className="input-group">
@@ -440,19 +511,16 @@ function AuthPanel({
                 type="text"
                 inputMode="numeric"
                 autoComplete="one-time-code"
+                maxLength={6}
                 value={verifyCode}
                 onChange={(event) => setVerifyCode(event.target.value)}
-                placeholder="Enter 6-digit code"
-                required
+                placeholder="6-digit code"
                 className="code-input"
+                required
               />
             </label>
 
-            <button
-              className="primary-button submit-btn"
-              type="submit"
-              disabled={loading || !pendingEmail}
-            >
+            <button className="primary-button submit-btn" type="submit" disabled={loading}>
               {loading ? (
                 <span className="btn-loading">
                   <span className="mini-spinner" /> Verifying...
@@ -463,9 +531,9 @@ function AuthPanel({
             </button>
 
             <div className="helper-line">
-              Need to change your email?{" "}
+              Need to restart?{" "}
               <button type="button" onClick={() => setAuthView("signup")}>
-                Back to sign up
+                Back to signup
               </button>
             </div>
           </form>
@@ -475,16 +543,185 @@ function AuthPanel({
   );
 }
 
+// Dedicated Character Selection Screen after login
+function CompanionSelector({ user, onSelectCompanion, onLogout, theme, onToggleTheme }) {
+  const userGenderBadge = useMemo(() => {
+    if (user?.gender === "female") return { label: "Female", icon: "👩" };
+    if (user?.gender === "male") return { label: "Male", icon: "👨" };
+    return { label: "User", icon: "✨" };
+  }, [user]);
+
+  return (
+    <main className="app-shell companion-select-shell" data-theme={theme}>
+      <header className="global-header">
+        <div className="header-brand">
+          <MilanLogo size={32} />
+          <span className="brand-text">Milan Lounge</span>
+        </div>
+        <div className="header-user-controls">
+          <div className="user-pill-tag">
+            <span className="user-gender-icon">{userGenderBadge.icon}</span>
+            <span className="user-email-text">{user?.email}</span>
+          </div>
+          <button
+            type="button"
+            className="theme-toggle-btn"
+            onClick={onToggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
+          <button
+            type="button"
+            className="ghost-button icon-only danger"
+            onClick={onLogout}
+            aria-label="Log out"
+            title="Log out"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div className="background-ribbon ribbon-one" />
+      <div className="background-ribbon ribbon-two" />
+      <div className="background-ribbon ribbon-three" />
+
+      <section className="companion-select-container">
+        <div className="companion-hero-header">
+          <div className="eyebrow-chip">
+            <SparklesIcon />
+            <span>AI Sanctuary • Choose Your Confidante</span>
+          </div>
+          <h1>Who would you like to talk with today?</h1>
+          <p>
+            Welcome, <strong>{user?.email}</strong>. Select the companion you'd like to spend time with.
+            Each has their own distinct personality, warmth, and conversational style.
+          </p>
+        </div>
+
+        <div className="companion-cards-grid">
+          {/* Card 1: Titli (Female companion for males) */}
+          <article className="companion-choice-card titli-card">
+            {user?.gender === "male" && (
+              <div className="card-recommended-pill titli">
+                <span>⭐ Recommended for You</span>
+              </div>
+            )}
+            <div className="card-top-badge titli-badge">
+              <span className="badge-dot" />
+              <span>Female Companion • Specially for Males</span>
+            </div>
+
+            <div className="card-avatar-row">
+              <div className="companion-avatar-ring titli-ring">
+                <span className="avatar-big-emoji">🦋</span>
+                <span className="online-beacon" />
+              </div>
+            </div>
+
+            <h2 className="companion-card-name">Titli</h2>
+            <p className="companion-card-tagline">The Sweet & Flirty Female Companion</p>
+
+            <p className="companion-card-bio">
+              Warm, charming, playful, and empathetic. Titli loves playful banter, morning coffee photos,
+              sweet teasing, and pampering you with genuine care and affection.
+            </p>
+
+            <div className="companion-traits-list">
+              <span className="trait-pill">🌸 Sweet & Empathetic</span>
+              <span className="trait-pill">💕 Flirty & Caring</span>
+              <span className="trait-pill">📸 Selfie Moments</span>
+              <span className="trait-pill">🎙️ Feminine Voice</span>
+            </div>
+
+            <button
+              type="button"
+              className="companion-select-cta-btn titli-cta"
+              onClick={() => onSelectCompanion("titli")}
+            >
+              <span>Chat with Titli</span>
+              <span className="cta-arrow">→</span>
+            </button>
+          </article>
+
+          {/* Card 2: Bhanvra (Male companion for females) */}
+          <article className="companion-choice-card bhanvra-card">
+            {user?.gender === "female" && (
+              <div className="card-recommended-pill bhanvra">
+                <span>⭐ Recommended for You</span>
+              </div>
+            )}
+            <div className="card-top-badge bhanvra-badge">
+              <span className="badge-dot bhanvra" />
+              <span>Male Companion • Specially for Females</span>
+            </div>
+
+            <div className="card-avatar-row">
+              <div className="companion-avatar-ring bhanvra-ring">
+                <span className="avatar-big-emoji">🐝</span>
+                <span className="online-beacon" />
+              </div>
+            </div>
+
+            <h2 className="companion-card-name">Bhanvra</h2>
+            <p className="companion-card-tagline">The Dashing & Caring Gentleman</p>
+
+            <p className="companion-card-bio">
+              Handsome, confident, protective, and effortlessly chivalrous. Bhanvra treats you like a queen,
+              brightens your mood, sends roses, and keeps you company on late-night talks.
+            </p>
+
+            <div className="companion-traits-list">
+              <span className="trait-pill bhanvra">👑 Chivalrous & Dashing</span>
+              <span className="trait-pill bhanvra">🌹 Romantic & Attentive</span>
+              <span className="trait-pill bhanvra">🚗 Night Drives</span>
+              <span className="trait-pill bhanvra">🎙️ Deep Warm Voice</span>
+            </div>
+
+            <button
+              type="button"
+              className="companion-select-cta-btn bhanvra-cta"
+              onClick={() => onSelectCompanion("bhanvra")}
+            >
+              <span>Chat with Bhanvra</span>
+              <span className="cta-arrow">→</span>
+            </button>
+          </article>
+        </div>
+
+        <div className="companion-select-footer-note">
+          <p>
+            💡 <em>You can switch between Titli and Bhanvra at any time from the chat room topbar.</em>
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export default function App() {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY) || "");
   const [user, setUser] = useState(null);
+  const [selectedCompanion, setSelectedCompanion] = useState(() => {
+    return localStorage.getItem(COMPANION_KEY) || "";
+  });
   const [authView, setAuthView] = useState("login");
   const [pendingEmail, setPendingEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [booting, setBooting] = useState(true);
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
-  const [booting, setBooting] = useState(Boolean(localStorage.getItem(TOKEN_KEY)));
-  const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || "dark");
+
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem(THEME_KEY);
+    return saved || "dark";
+  });
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -492,7 +729,7 @@ export default function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   useEffect(() => {
@@ -547,7 +784,11 @@ export default function App() {
     return requestError?.response?.data?.detail || fallback;
   };
 
-  const handleSignup = async ({ email, password, is18Plus }) => {
+  const handleSignup = async ({ email, password, gender, is18Plus }) => {
+    if (!gender) {
+      setError("Please select your gender (Male, Female, or Others).");
+      return;
+    }
     if (is18Plus !== true) {
       setError("You must confirm that you are 18+ to create an account.");
       return;
@@ -559,6 +800,7 @@ export default function App() {
       const response = await api.post("/auth/signup", {
         email,
         password,
+        gender,
         is_18_plus: true,
       });
       if (response.data.access_token) {
@@ -611,8 +853,10 @@ export default function App() {
   const handleLogout = async () => {
     const currentToken = token;
     localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(COMPANION_KEY);
     setToken("");
     setUser(null);
+    setSelectedCompanion("");
     setAuthView("login");
     setPendingEmail("");
     setNotice("Logged out securely.");
@@ -633,24 +877,49 @@ export default function App() {
     }
   };
 
+  const handleSelectCompanion = (comp) => {
+    localStorage.setItem(COMPANION_KEY, comp);
+    setSelectedCompanion(comp);
+  };
+
+  const handleSwitchCompanion = () => {
+    localStorage.removeItem(COMPANION_KEY);
+    setSelectedCompanion("");
+  };
+
   if (booting) {
     return (
       <main className="app-shell loading-shell" data-theme={theme}>
         <div className="loading-card">
-          <ButterflyLogo size={44} />
+          <MilanLogo size={48} />
           <div className="pulse-dot" />
-          <p className="loading-text">Opening your private lounge...</p>
+          <p className="loading-text">Opening Milan Lounge...</p>
         </div>
       </main>
     );
   }
 
   if (user && token) {
+    // Show companion selection screen if not chosen yet
+    if (!selectedCompanion) {
+      return (
+        <CompanionSelector
+          user={user}
+          onSelectCompanion={handleSelectCompanion}
+          onLogout={handleLogout}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+        />
+      );
+    }
+
     return (
       <Chat
         api={api}
         token={token}
         user={user}
+        initialCompanion={selectedCompanion}
+        onSwitchCompanion={handleSwitchCompanion}
         onLogout={handleLogout}
         theme={theme}
         onToggleTheme={toggleTheme}
@@ -662,8 +931,8 @@ export default function App() {
     <main className="app-shell" data-theme={theme}>
       <header className="global-header">
         <div className="header-brand">
-          <ButterflyLogo size={28} />
-          <span className="brand-text">Titli Lounge</span>
+          <MilanLogo size={28} />
+          <span className="brand-text">Milan Lounge</span>
         </div>
         <button
           type="button"

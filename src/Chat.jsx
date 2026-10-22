@@ -94,7 +94,7 @@ const playReceiveSound = () => {
 
 function ButterflyAvatar({ size = 36 }) {
   return (
-    <div className="avatar-wrap" style={{ width: size, height: size }}>
+    <div className="avatar-wrap titli" style={{ width: size, height: size }}>
       <svg width={size * 0.7} height={size * 0.7} viewBox="0 0 24 24" fill="none">
         <defs>
           <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -124,6 +124,39 @@ function ButterflyAvatar({ size = 36 }) {
     </div>
   );
 }
+
+function BhanvraAvatar({ size = 36 }) {
+  return (
+    <div className="avatar-wrap bhanvra" style={{ width: size, height: size }}>
+      <svg width={size * 0.72} height={size * 0.72} viewBox="0 0 24 24" fill="none">
+        <defs>
+          <linearGradient id="bhanvraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="50%" stopColor="#6366f1" />
+            <stop offset="100%" stopColor="#f59e0b" />
+          </linearGradient>
+        </defs>
+        <ellipse cx="12" cy="13" rx="5" ry="7" fill="url(#bhanvraGrad)" />
+        <line x1="8" y1="11" x2="16" y2="11" stroke="#0e1424" strokeWidth="1.6" strokeLinecap="round" />
+        <line x1="7.5" y1="14" x2="16.5" y2="14" stroke="#0e1424" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M10 10C8 6 3 6 4 11c.8 4 5 3 6-1z" fill="url(#bhanvraGrad)" fillOpacity="0.75" />
+        <path d="M14 10c2-4 7-4 6 1-.8 4-5 3-6-1z" fill="url(#bhanvraGrad)" fillOpacity="0.75" />
+        <circle cx="12" cy="6" r="2.8" fill="url(#bhanvraGrad)" />
+        <path d="M10.8 4.2C10 2.8 8.5 2.5 8 2.6" stroke="url(#bhanvraGrad)" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M13.2 4.2C14 2.8 15.5 2.5 16 2.6" stroke="url(#bhanvraGrad)" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+      <span className="online-dot" />
+    </div>
+  );
+}
+
+function CompanionAvatar({ companion = "titli", size = 36 }) {
+  if (companion === "bhanvra") {
+    return <BhanvraAvatar size={size} />;
+  }
+  return <ButterflyAvatar size={size} />;
+}
+
 
 function SendIcon() {
   return (
@@ -323,7 +356,127 @@ function SmilePlusIcon() {
   );
 }
 
-const QUICK_REACTIONS = ["❤️", "💖", "🔥", "😂", "🥺", "✨", "😍", "🦋"];
+function StarIcon({ filled = false, size = 15 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={filled ? "#f59e0b" : "none"}
+      stroke={filled ? "#f59e0b" : "currentColor"}
+      strokeWidth={filled ? "1.2" : "2"}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+function PaletteIcon({ size = 18 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+    </svg>
+  );
+}
+
+function UploadIcon({ size = 20 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="17 8 12 3 7 8" />
+      <line x1="12" y1="3" x2="12" y2="15" />
+    </svg>
+  );
+}
+
+function DownloadIcon({ size = 16 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+const WALLPAPER_KEY = "companion_active_wallpaper";
+const CUSTOM_WALLPAPER_DATA_KEY = "companion_custom_wallpaper_data";
+const WALLPAPER_BLUR_KEY = "companion_wallpaper_blur";
+const WALLPAPER_DIM_KEY = "companion_wallpaper_dim";
+
+const WALLPAPER_PRESETS = [
+  {
+    id: "default",
+    name: "Cyber Velvet",
+    description: "Classic obsidian with glowing violet & ruby accents",
+    preview: "linear-gradient(135deg, #0a0d14 0%, #1a162b 50%, #0f1420 100%)",
+  },
+  {
+    id: "romantic-dusk",
+    name: "Romantic Dusk",
+    description: "Twilight sunset glow with plum, peach & rose quartz",
+    preview: "linear-gradient(135deg, #2a1124 0%, #4a1942 50%, #1e1026 100%)",
+  },
+  {
+    id: "dark-velvet",
+    name: "Dark Velvet",
+    description: "Ultra-dark luxury noir with subtle ruby velvet shadows",
+    preview: "linear-gradient(135deg, #050608 0%, #1f0b12 50%, #0d060c 100%)",
+  },
+  {
+    id: "glass-aurora",
+    name: "Glass Aurora",
+    description: "Cosmic emerald, teal & royal indigo with frost glow",
+    preview: "linear-gradient(135deg, #061917 0%, #0a2540 50%, #131438 100%)",
+  },
+  {
+    id: "midnight-starlight",
+    name: "Midnight Starlight",
+    description: "Deep celestial blue with sparkling starlight atmosphere",
+    preview: "linear-gradient(135deg, #020b1e 0%, #0f172a 50%, #070e28 100%)",
+  },
+  {
+    id: "rose-quartz",
+    name: "Rose Quartz",
+    description: "Gentle romantic blush, pastel blossoms & warm champagne",
+    preview: "linear-gradient(135deg, #240e1b 0%, #3a1529 50%, #1f0f1c 100%)",
+  },
+];
+
+const QUICK_REACTIONS = ["❤️", "💖", "🔥", "😂", "🥺", "✨", "😍", "🦋", "🌹", "🐝"];
 
 // Browser native Web Speech API helpers (100% Free / Zero Cost)
 const SpeechRecognition =
@@ -331,7 +484,7 @@ const SpeechRecognition =
     ? window.SpeechRecognition || window.webkitSpeechRecognition
     : null;
 
-const speakMessage = (text, onStart, onEnd) => {
+const speakMessage = (text, onStart, onEnd, companion = "titli") => {
   if (typeof window === "undefined" || !window.speechSynthesis) return null;
   try {
     window.speechSynthesis.cancel();
@@ -342,26 +495,47 @@ const speakMessage = (text, onStart, onEnd) => {
     }
     const utterance = new SpeechSynthesisUtterance(cleanText);
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice =
-      voices.find(
-        (v) =>
-          (v.name.includes("Natural") ||
-            v.name.includes("Samantha") ||
-            v.name.includes("Zira") ||
-            v.name.includes("Victoria") ||
-            v.name.includes("Google") ||
-            v.name.includes("Female") ||
-            v.name.includes("Jenny")) &&
-          v.lang.startsWith("en")
-      ) ||
-      voices.find((v) => v.lang.startsWith("en")) ||
-      voices[0];
+
+    let preferredVoice = null;
+    if (companion === "bhanvra") {
+      preferredVoice =
+        voices.find(
+          (v) =>
+            (v.name.includes("David") ||
+              v.name.includes("Mark") ||
+              v.name.includes("Guy") ||
+              v.name.includes("Male") ||
+              v.name.includes("George") ||
+              v.name.includes("James") ||
+              v.name.includes("Alex")) &&
+            v.lang.startsWith("en")
+        ) ||
+        voices.find((v) => v.lang.startsWith("en")) ||
+        voices[0];
+      utterance.pitch = 0.90;
+      utterance.rate = 0.94;
+    } else {
+      preferredVoice =
+        voices.find(
+          (v) =>
+            (v.name.includes("Natural") ||
+              v.name.includes("Samantha") ||
+              v.name.includes("Zira") ||
+              v.name.includes("Victoria") ||
+              v.name.includes("Google") ||
+              v.name.includes("Female") ||
+              v.name.includes("Jenny")) &&
+            v.lang.startsWith("en")
+        ) ||
+        voices.find((v) => v.lang.startsWith("en")) ||
+        voices[0];
+      utterance.pitch = 1.15;
+      utterance.rate = 0.96;
+    }
 
     if (preferredVoice) {
       utterance.voice = preferredVoice;
     }
-    utterance.pitch = 1.12;
-    utterance.rate = 0.96;
 
     utterance.onstart = () => {
       if (onStart) onStart();
@@ -389,10 +563,16 @@ const stopSpeaking = () => {
 
 const EMOJI_CATEGORIES = [
   {
-    id: "sweet",
+    id: "titli",
     name: "Titli Sweet",
     icon: "🦋",
     emojis: ["💕", "💖", "🦋", "✨", "🥰", "😘", "😍", "🌸", "🌹", "💋", "💫", "💌", "🌷", "🌺", "💐", "🍫", "🍓", "🥂", "🎀", "🕊️"],
+  },
+  {
+    id: "bhanvra",
+    name: "Bhanvra Charm",
+    icon: "🐝",
+    emojis: ["🌹", "🔥", "👑", "🐝", "✨", "😉", "☕", "🖤", "🏎️", "🍷", "💎", "🌙", "⭐", "🫶", "🍾", "🌃", "🤝", "💪", "🕶️", "🦁"],
   },
   {
     id: "faces",
@@ -406,15 +586,9 @@ const EMOJI_CATEGORIES = [
     icon: "💖",
     emojis: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💘", "💝", "💞", "💓", "💗", "🔥", "✨", "❤️‍🔥", "❤️‍🩹", "❣️", "💟"],
   },
-  {
-    id: "gestures",
-    name: "Cute & Fun",
-    icon: "🫶",
-    emojis: ["🫶", "🫰", "✌️", "🤞", "👋", "👏", "🙌", "🫂", "🤝", "💅", "💃", "✨", "🎉", "⭐", "🌙", "👑", "💎", "🥂", "🎈", "🧁"],
-  },
 ];
 
-const STARTER_PROMPTS = [
+const TITLI_STARTERS = [
   "Hey Titli, tell me what you're thinking about right now 💕",
   "Send me a sweet morning coffee photo ☕",
   "Show me the sunset view you're watching 🌅",
@@ -422,7 +596,32 @@ const STARTER_PROMPTS = [
   "Surprise me with something sweet and lovely 🤫",
 ];
 
-export default function Chat({ api, token, user, onLogout, theme, onToggleTheme }) {
+const BHANVRA_STARTERS = [
+  "Hey Bhanvra, what are you doing right now? 🌹",
+  "Can you send me a picture of your coffee or breakfast? ☕",
+  "Send me a handsome selfie 😉📸",
+  "Say something romantic that will make me blush 💕",
+  "Take me on a late night drive with you 🚗✨",
+];
+
+export default function Chat({
+  api,
+  token,
+  user,
+  onLogout,
+  theme,
+  onToggleTheme,
+  initialCompanion = "titli",
+  onSwitchCompanion,
+}) {
+  const [activeCompanion, setActiveCompanion] = useState(initialCompanion || "titli");
+
+  useEffect(() => {
+    if (initialCompanion) {
+      setActiveCompanion(initialCompanion);
+    }
+  }, [initialCompanion]);
+
   const [sessions, setSessions] = useState([]);
   const [activeSessionId, setActiveSessionId] = useState("");
   const [messages, setMessages] = useState([]);
@@ -453,7 +652,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
 
   // Emoji picker state
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
-  const [activeEmojiTab, setActiveEmojiTab] = useState("sweet");
+  const [activeEmojiTab, setActiveEmojiTab] = useState(initialCompanion === "bhanvra" ? "bhanvra" : "titli");
 
   // Voice & Image states (100% Free)
   const [speakingIndex, setSpeakingIndex] = useState(null);
@@ -463,6 +662,31 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
 
   // Message Reaction state
   const [activeReactionPickerIndex, setActiveReactionPickerIndex] = useState(null);
+
+  // Custom Wallpaper state
+  const [wallpaperTheme, setWallpaperTheme] = useState(() => {
+    return localStorage.getItem(WALLPAPER_KEY) || "default";
+  });
+  const [customWallpaperData, setCustomWallpaperData] = useState(() => {
+    return localStorage.getItem(CUSTOM_WALLPAPER_DATA_KEY) || "";
+  });
+  const [wallpaperBlur, setWallpaperBlur] = useState(() => {
+    const saved = localStorage.getItem(WALLPAPER_BLUR_KEY);
+    return saved !== null ? parseInt(saved, 10) : 4;
+  });
+  const [wallpaperDim, setWallpaperDim] = useState(() => {
+    const saved = localStorage.getItem(WALLPAPER_DIM_KEY);
+    return saved !== null ? parseInt(saved, 10) : 40;
+  });
+  const [wallpaperModalOpen, setWallpaperModalOpen] = useState(false);
+
+  // Starred Moments state
+  const [starredMessages, setStarredMessages] = useState([]);
+  const [loadingStarred, setLoadingStarred] = useState(false);
+  const [momentsModalOpen, setMomentsModalOpen] = useState(false);
+  const [momentsFilter, setMomentsFilter] = useState("all");
+  const [momentsSearch, setMomentsSearch] = useState("");
+  const wallpaperInputRef = useRef(null);
 
   const endRef = useRef(null);
   const streamRef = useRef(null);
@@ -503,6 +727,9 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
           headers: authHeaders,
         });
         setMessages(response.data.messages || []);
+        if (response.data.companion) {
+          setActiveCompanion(response.data.companion);
+        }
       } catch (requestError) {
         setError(requestError?.response?.data?.detail || "Could not load this chat.");
       } finally {
@@ -534,7 +761,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
     [api, authHeaders, loadMessages]
   );
 
-  // Initial load only: load sessions and open latest session on start
+  // Initial load: find latest session matching companion or start fresh
   useEffect(() => {
     let isMounted = true;
     async function init() {
@@ -545,9 +772,14 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
         if (!isMounted) return;
         const nextSessions = response.data.sessions || [];
         setSessions(nextSessions);
-        if (nextSessions.length > 0) {
-          setActiveSessionId(nextSessions[0].session_id);
-          await loadMessages(nextSessions[0].session_id);
+        const match = nextSessions.find((s) => (s.companion || "titli") === (initialCompanion || "titli"));
+        if (match) {
+          setActiveSessionId(match.session_id);
+          setActiveCompanion(match.companion || "titli");
+          await loadMessages(match.session_id);
+        } else {
+          setActiveSessionId("");
+          setMessages([]);
         }
       } catch (requestError) {
         if (isMounted) {
@@ -564,7 +796,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
     return () => {
       isMounted = false;
     };
-  }, [api, authHeaders, loadMessages]);
+  }, [api, authHeaders, initialCompanion, loadMessages]);
 
   // Pre-fetch speech synthesis voices and cleanup audio on unmount
   useEffect(() => {
@@ -637,6 +869,22 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
         return;
       }
 
+      // If moments modal is open, dismiss it
+      if (momentsModalOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+        setMomentsModalOpen(false);
+        return;
+      }
+
+      // If wallpaper modal is open, dismiss it
+      if (wallpaperModalOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+        setWallpaperModalOpen(false);
+        return;
+      }
+
       // 1. If image lightbox is open, dismiss it
       if (lightboxImage) {
         e.preventDefault();
@@ -704,7 +952,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
 
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
-  }, [sidebarOpen, inChatSearchOpen, sessionToDelete, emojiPickerOpen, lightboxImage, attachedImage, activeReactionPickerIndex, activeSessionId, messages, draft, handleCloseChat]);
+  }, [sidebarOpen, inChatSearchOpen, sessionToDelete, emojiPickerOpen, lightboxImage, attachedImage, activeReactionPickerIndex, activeSessionId, messages, draft, handleCloseChat, momentsModalOpen, wallpaperModalOpen]);
 
   // Close reaction picker when clicking outside
   useEffect(() => {
@@ -773,7 +1021,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
     setShowScrollBottom(false);
   };
 
-  const handleSessionPick = async (sessionId) => {
+  const handleSessionPick = async (sessionId, companion) => {
     stopSpeaking();
     setSpeakingIndex(null);
     if (recognitionRef.current) {
@@ -784,6 +1032,9 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
     setLightboxImage(null);
     setActiveReactionPickerIndex(null);
     setActiveSessionId(sessionId);
+    if (companion) {
+      setActiveCompanion(companion);
+    }
     setSidebarOpen(false);
     setInChatSearchQuery("");
     await loadMessages(sessionId);
@@ -932,7 +1183,8 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
       speakMessage(
         text,
         () => setSpeakingIndex(index),
-        () => setSpeakingIndex(null)
+        () => setSpeakingIndex(null),
+        activeCompanion
       );
     }
   };
@@ -973,6 +1225,193 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
         console.warn("Failed to toggle reaction on message:", err);
       }
     }
+  };
+
+  // Fetch Starred Moments from Backend
+  const fetchStarredMessages = useCallback(async () => {
+    if (!token) return;
+    try {
+      setLoadingStarred(true);
+      const res = await api.get("/chat/starred", { headers: authHeaders });
+      setStarredMessages(res.data.messages || []);
+    } catch (err) {
+      console.warn("Failed to fetch starred messages", err);
+    } finally {
+      setLoadingStarred(false);
+    }
+  }, [api, authHeaders, token]);
+
+  useEffect(() => {
+    fetchStarredMessages();
+  }, [fetchStarredMessages]);
+
+  const handleToggleStar = async (messageIndex, targetMessage) => {
+    const currentStarred = Boolean(targetMessage.is_starred);
+    const nextStarred = !currentStarred;
+
+    // Optimistically update current chat stream
+    setMessages((prev) => {
+      const copy = [...prev];
+      if (copy[messageIndex]) {
+        copy[messageIndex] = {
+          ...copy[messageIndex],
+          is_starred: nextStarred,
+        };
+      }
+      return copy;
+    });
+
+    if (targetMessage.id) {
+      try {
+        await api.post(
+          `/chat/messages/${targetMessage.id}/star`,
+          {},
+          { headers: authHeaders }
+        );
+        fetchStarredMessages();
+        setFeedbackNotice(nextStarred ? "Saved to Moments ⭐" : "Removed from Moments");
+        setTimeout(() => setFeedbackNotice(""), 2000);
+      } catch (err) {
+        console.warn("Failed to toggle star:", err);
+        // Revert on failure
+        setMessages((prev) => {
+          const copy = [...prev];
+          if (copy[messageIndex]) {
+            copy[messageIndex] = {
+              ...copy[messageIndex],
+              is_starred: currentStarred,
+            };
+          }
+          return copy;
+        });
+      }
+    }
+  };
+
+  const handleUnstarFromModal = async (messageId) => {
+    setStarredMessages((prev) => prev.filter((m) => m.id !== messageId));
+    setMessages((prev) =>
+      prev.map((m) => (m.id === messageId ? { ...m, is_starred: false } : m))
+    );
+
+    try {
+      await api.post(`/chat/messages/${messageId}/star`, {}, { headers: authHeaders });
+      fetchStarredMessages();
+    } catch (err) {
+      console.warn("Failed to unstar from modal:", err);
+      fetchStarredMessages();
+    }
+  };
+
+  const handleJumpToSession = (sessionId) => {
+    if (sessionId) {
+      setActiveSessionId(sessionId);
+      loadMessages(sessionId);
+      setMomentsModalOpen(false);
+    }
+  };
+
+  const handleExportMoments = () => {
+    if (starredMessages.length === 0) return;
+    const lines = [
+      "# Milan Companion Lounge — Saved Moments ⭐",
+      `Exported: ${new Date().toLocaleString()}`,
+      `Total Saved Moments: ${starredMessages.length}`,
+      "",
+      "---",
+      "",
+    ];
+
+    starredMessages.forEach((msg, idx) => {
+      const comp = msg.companion === "bhanvra" ? "Bhanvra 🐝" : "Titli 🦋";
+      const speaker = msg.role === "user" ? "You" : comp;
+      lines.push(`### Moment #${idx + 1} • ${speaker} (${formatTimestamp(msg.created_at)})`);
+      lines.push(`> "${msg.content}"`);
+      if (msg.image_url) {
+        lines.push(`\nPhoto: ${msg.image_url}`);
+      }
+      lines.push("");
+      lines.push("---");
+      lines.push("");
+    });
+
+    const blob = new Blob([lines.join("\n")], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `milan_companion_moments_${new Date().toISOString().slice(0, 10)}.md`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const filteredMoments = useMemo(() => {
+    let list = starredMessages;
+    if (momentsFilter === "titli") {
+      list = list.filter((m) => m.companion !== "bhanvra");
+    } else if (momentsFilter === "bhanvra") {
+      list = list.filter((m) => m.companion === "bhanvra");
+    }
+    if (momentsSearch.trim()) {
+      const q = momentsSearch.trim().toLowerCase();
+      list = list.filter((m) => m.content && m.content.toLowerCase().includes(q));
+    }
+    return list;
+  }, [starredMessages, momentsFilter, momentsSearch]);
+
+  const handleSelectPresetWallpaper = (presetId) => {
+    setWallpaperTheme(presetId);
+    try {
+      localStorage.setItem(WALLPAPER_KEY, presetId);
+    } catch (_e) {}
+  };
+
+  const handleWallpaperUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setError("Please select an image file (JPG, PNG, WebP).");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setError("Image size should be under 8MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      setCustomWallpaperData(dataUrl);
+      setWallpaperTheme("custom");
+      try {
+        localStorage.setItem(CUSTOM_WALLPAPER_DATA_KEY, dataUrl);
+        localStorage.setItem(WALLPAPER_KEY, "custom");
+      } catch (storageErr) {
+        console.warn("Could not persist wallpaper dataUrl:", storageErr);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveCustomWallpaper = () => {
+    setCustomWallpaperData("");
+    setWallpaperTheme("default");
+    try {
+      localStorage.removeItem(CUSTOM_WALLPAPER_DATA_KEY);
+      localStorage.setItem(WALLPAPER_KEY, "default");
+    } catch (_e) {}
+  };
+
+  const handleChangeBlur = (val) => {
+    setWallpaperBlur(val);
+    try {
+      localStorage.setItem(WALLPAPER_BLUR_KEY, String(val));
+    } catch (_e) {}
+  };
+
+  const handleChangeDim = (val) => {
+    setWallpaperDim(val);
+    try {
+      localStorage.setItem(WALLPAPER_DIM_KEY, String(val));
+    } catch (_e) {}
   };
 
   const handleSend = async (textToSend) => {
@@ -1017,6 +1456,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
         "/chat",
         {
           session_id: activeSessionId || null,
+          companion: activeCompanion,
           message: trimmed,
           image: currentAttachedImage ? currentAttachedImage.dataUrl : null,
         },
@@ -1029,6 +1469,9 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
       const assistantMsgId = response.data.assistant_message_id;
 
       setActiveSessionId(nextSessionId);
+      if (response.data.companion) {
+        setActiveCompanion(response.data.companion);
+      }
       setMessages((current) => {
         const next = [...current];
         if (next.length > 0) {
@@ -1285,16 +1728,17 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
 
             {filteredSessions.map((session, index) => {
               const isActive = session.session_id === activeSessionId;
+              const sessionComp = session.companion || "titli";
               return (
                 <div
                   key={session.session_id}
-                  className={`session-card-wrapper ${isActive ? "active" : ""}`}
+                  className={`session-card-wrapper ${isActive ? "active" : ""} ${sessionComp === "bhanvra" ? "bhanvra-card" : ""}`}
                 >
                   <button
                     ref={isActive ? activeSessionRef : null}
                     type="button"
                     className="session-card-main"
-                    onClick={() => handleSessionPick(session.session_id)}
+                    onClick={() => handleSessionPick(session.session_id, sessionComp)}
                     onKeyDown={(e) => {
                       if (e.key === "ArrowDown") {
                         e.preventDefault();
@@ -1312,7 +1756,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                     }}
                   >
                     <span className="session-badge">
-                      {String(index + 1).padStart(2, "0")}
+                      {sessionComp === "bhanvra" ? "🐝" : "🦋"}
                     </span>
                     <div className="session-details">
                       <div className="session-headline">
@@ -1324,7 +1768,12 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                         </strong>
                         <span className="msg-pill">{session.message_count} msg</span>
                       </div>
-                      <small>{formatTimestamp(session.last_message_at || session.created_at)}</small>
+                      <div className="session-subline">
+                        <small>{formatTimestamp(session.last_message_at || session.created_at)}</small>
+                        <span className={`companion-session-tag ${sessionComp === "bhanvra" ? "bhanvra" : "titli"}`}>
+                          {sessionComp === "bhanvra" ? "Bhanvra" : "Titli"}
+                        </span>
+                      </div>
                     </div>
                   </button>
                   <button
@@ -1375,18 +1824,35 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
             </button>
 
             <div className="companion-identity">
-              <ButterflyAvatar size={42} />
+              <CompanionAvatar companion={activeCompanion} size={42} />
               <div className="companion-meta">
                 <div className="name-row">
-                  <h1>Titli</h1>
-                  <span className="status-badge">Online</span>
+                  <h1>{activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"}</h1>
+                  <span className={`status-badge ${activeCompanion === "bhanvra" ? "bhanvra" : ""}`}>Online</span>
                 </div>
-                <p className="companion-tagline">Flirty & Empathetic Companion</p>
+                <p className="companion-tagline">
+                  {activeCompanion === "bhanvra"
+                    ? "Dashing & Charming Gentleman"
+                    : "Flirty & Empathetic Companion"}
+                </p>
               </div>
             </div>
           </div>
 
           <div className="topbar-actions">
+            {/* Switch Companion Button */}
+            <button
+              type="button"
+              className={`companion-switch-topbar-btn ${activeCompanion === "bhanvra" ? "bhanvra" : "titli"}`}
+              onClick={onSwitchCompanion || (() => setActiveCompanion((c) => (c === "bhanvra" ? "titli" : "bhanvra")))}
+              aria-label={`Switch companion. Currently chatting with ${activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"}`}
+              title="Switch companion or enter lounge lobby"
+            >
+              <span className="switch-icon">{activeCompanion === "bhanvra" ? "🦋" : "🐝"}</span>
+              <span className="switch-text desktop-switch-text">Switch to {activeCompanion === "bhanvra" ? "Titli" : "Bhanvra"}</span>
+              <span className="switch-text mobile-switch-text">Switch</span>
+            </button>
+
             {/* Search in Current Chat Toggle */}
             <button
               type="button"
@@ -1447,6 +1913,34 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
               <PlusIcon />
             </button>
 
+            {/* Saved Moments / Starred Messages */}
+            <button
+              type="button"
+              className={`ghost-button icon-only moments-btn ${starredMessages.length > 0 ? "has-starred" : ""}`}
+              onClick={() => {
+                fetchStarredMessages();
+                setMomentsModalOpen(true);
+              }}
+              aria-label="Saved Moments"
+              title={`Saved Moments (${starredMessages.length} starred)`}
+            >
+              <StarIcon filled={starredMessages.length > 0} size={18} />
+              {starredMessages.length > 0 && (
+                <span className="moments-badge">{starredMessages.length}</span>
+              )}
+            </button>
+
+            {/* Chat Wallpaper & Ambience */}
+            <button
+              type="button"
+              className={`ghost-button icon-only wallpaper-btn ${wallpaperTheme !== "default" ? "customized" : ""}`}
+              onClick={() => setWallpaperModalOpen(true)}
+              aria-label="Wallpaper & Ambience"
+              title="Chat Wallpaper & Ambience"
+            >
+              <PaletteIcon size={18} />
+            </button>
+
             {/* Theme Switcher */}
             <button
               type="button"
@@ -1503,7 +1997,27 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
         )}
 
         {/* Chat Stage Area */}
-        <section className="chat-stage">
+        <section className={`chat-stage stage-wallpaper-${wallpaperTheme}`}>
+          {/* Ambient / Custom Wallpaper Layer */}
+          <div
+            className={`chat-wallpaper-layer wallpaper-${wallpaperTheme}`}
+            style={
+              wallpaperTheme === "custom" && customWallpaperData
+                ? {
+                    backgroundImage: `url(${customWallpaperData})`,
+                    filter: `blur(${wallpaperBlur}px)`,
+                    transform: "scale(1.08)",
+                  }
+                : undefined
+            }
+          />
+          {wallpaperTheme === "custom" && customWallpaperData && (
+            <div
+              className="chat-wallpaper-dim-overlay"
+              style={{ opacity: wallpaperDim / 100 }}
+            />
+          )}
+
           {feedbackNotice && (
             <div className="banner success in-chat" role="status">
               <span>✓</span>
@@ -1526,19 +2040,20 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
           >
             {/* Welcome Screen with Starter Chips if conversation is empty */}
             {!activeSessionId && messages.length === 0 && !loadingMessages ? (
-              <div className="welcome-hero">
-                <ButterflyAvatar size={64} />
-                <h3>Hello, darling... 💕</h3>
+              <div className={`welcome-hero ${activeCompanion === "bhanvra" ? "bhanvra" : "titli"}`}>
+                <CompanionAvatar companion={activeCompanion} size={64} />
+                <h3>{activeCompanion === "bhanvra" ? "Hello, gorgeous... 🌹" : "Hello, darling... 💕"}</h3>
                 <p>
-                  I'm Titli, your personal flirty companion. Tell me what's on your
-                  mind or pick a sweet conversation starter below!
+                  {activeCompanion === "bhanvra"
+                    ? "I'm Bhanvra, your devoted companion. Tell me about your day, let me pamper you, or pick a starter below!"
+                    : "I'm Titli, your personal flirty companion. Tell me what's on your mind or pick a sweet conversation starter below!"}
                 </p>
                 <div className="starter-chips">
-                  {STARTER_PROMPTS.map((promptText, i) => (
+                  {(activeCompanion === "bhanvra" ? BHANVRA_STARTERS : TITLI_STARTERS).map((promptText, i) => (
                     <button
                       key={i}
                       type="button"
-                      className="starter-chip"
+                      className={`starter-chip ${activeCompanion === "bhanvra" ? "bhanvra" : ""}`}
                       onClick={() => handleSend(promptText)}
                     >
                       {promptText}
@@ -1572,23 +2087,23 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                 >
                   {!isUser && (
                     <div className="bubble-avatar">
-                      <ButterflyAvatar size={30} />
+                      <CompanionAvatar companion={activeCompanion} size={30} />
                     </div>
                   )}
 
-                  <div className={`message-bubble ${isUser ? "user" : "assistant"}`}>
+                  <div className={`message-bubble ${isUser ? "user" : "assistant"} ${!isUser && activeCompanion === "bhanvra" ? "bhanvra-bubble" : ""}`}>
                     <div className="bubble-header">
                       <span className="message-role">
-                        {isUser ? "You" : "Titli"}
+                        {isUser ? "You" : activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"}
                       </span>
                       <div className="bubble-actions">
                         {!isUser && (
                           <button
                             type="button"
-                            className={`speak-btn ${speakingIndex === index ? "playing" : ""}`}
+                            className={`speak-btn ${speakingIndex === index ? "playing" : ""} ${activeCompanion === "bhanvra" ? "bhanvra" : ""}`}
                             onClick={() => handleToggleSpeak(message.content, index)}
-                            aria-label={speakingIndex === index ? "Stop voice" : "Listen to Titli speak"}
-                            title={speakingIndex === index ? "Stop voice" : "Listen to Titli speak"}
+                            aria-label={speakingIndex === index ? "Stop voice" : `Listen to ${activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"} speak`}
+                            title={speakingIndex === index ? "Stop voice" : `Listen to ${activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"} speak`}
                           >
                             <SpeakerWaveIcon playing={speakingIndex === index} />
                             <span>{speakingIndex === index ? "Playing" : "Listen"}</span>
@@ -1622,6 +2137,19 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                         >
                           {isCopied ? <CheckIcon /> : <CopyIcon />}
                           <span>{isCopied ? "Copied" : "Copy"}</span>
+                        </button>
+                        <button
+                          type="button"
+                          className={`star-btn ${message.is_starred ? "starred" : ""}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleStar(index, message);
+                          }}
+                          aria-label={message.is_starred ? "Remove from Moments" : "Save to Moments"}
+                          title={message.is_starred ? "Starred in Moments" : "Save to Moments (Star)"}
+                        >
+                          <StarIcon filled={Boolean(message.is_starred)} size={13} />
+                          <span className="star-btn-label">{message.is_starred ? "Saved" : "Star"}</span>
                         </button>
                         <time className="bubble-time">
                           {formatTimestamp(message.created_at)}
@@ -1664,7 +2192,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                       >
                         <img
                           src={message.image_url}
-                          alt={isUser ? "User upload" : "Titli's photo moment"}
+                          alt={isUser ? "User upload" : activeCompanion === "bhanvra" ? "Bhanvra's photo moment" : "Titli's photo moment"}
                           loading="lazy"
                           onError={(e) => {
                             e.target.onerror = null;
@@ -1716,10 +2244,10 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
             {sending ? (
               <article className="message-bubble-wrapper assistant-wrapper">
                 <div className="bubble-avatar">
-                  <ButterflyAvatar size={30} />
+                  <CompanionAvatar companion={activeCompanion} size={30} />
                 </div>
-                <div className="message-bubble assistant typing-bubble">
-                  <span className="message-role">Titli</span>
+                <div className={`message-bubble assistant typing-bubble ${activeCompanion === "bhanvra" ? "bhanvra-bubble" : ""}`}>
+                  <span className="message-role">{activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"}</span>
                   <div className="typing-dots">
                     <span />
                     <span />
@@ -1862,8 +2390,8 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                 type="button"
                 className={`composer-tool-btn mic-btn ${isListening ? "listening" : ""}`}
                 onClick={toggleVoiceInput}
-                aria-label={isListening ? "Listening... click to stop" : "Voice input (Speak to Titli)"}
-                title={isListening ? "Listening... click to stop" : "Speak to Titli (Voice STT - Free)"}
+                aria-label={isListening ? "Listening... click to stop" : `Voice input (Speak to ${activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"})`}
+                title={isListening ? "Listening... click to stop" : `Speak to ${activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"} (Voice STT - Free)`}
               >
                 <MicIcon active={isListening} />
                 {isListening && <span className="mic-pulse-ring" />}
@@ -1885,7 +2413,7 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
                     handleSend();
                   }
                 }}
-                placeholder={isListening ? "Listening to your voice... Speak now 🎙️" : "Say something sweet to Titli... (Enter to send • Esc to close)"}
+                placeholder={isListening ? "Listening to your voice... Speak now 🎙️" : `Say something sweet to ${activeCompanion === "bhanvra" ? "Bhanvra" : "Titli"}... (Enter to send • Esc to close)`}
                 rows={1}
                 aria-label="Type message"
               />
@@ -1936,6 +2464,370 @@ export default function Chat({ api, token, user, onLogout, theme, onToggleTheme 
               >
                 Open Full Size ↗
               </a>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Saved Moments / Starred Messages Modal */}
+      {momentsModalOpen && (
+        <div className="modal-backdrop" onClick={() => setMomentsModalOpen(false)}>
+          <div
+            className="modal-card wide-modal moments-modal"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="moments-modal-title"
+          >
+            <div className="wide-modal-header">
+              <div className="wide-modal-title-wrap">
+                <div className="modal-icon-badge star-badge">
+                  <StarIcon filled size={20} />
+                </div>
+                <div>
+                  <h3 id="moments-modal-title">Saved Moments</h3>
+                  <p className="modal-subtitle">
+                    Your starred memories & special quotes ({filteredMoments.length})
+                  </p>
+                </div>
+              </div>
+              <div className="wide-modal-header-actions">
+                {starredMessages.length > 0 && (
+                  <button
+                    type="button"
+                    className="ghost-button icon-text-btn export-btn"
+                    onClick={handleExportMoments}
+                    title="Export moments as Markdown"
+                  >
+                    <DownloadIcon size={15} />
+                    <span>Export</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="ghost-button icon-only modal-close-btn"
+                  onClick={() => setMomentsModalOpen(false)}
+                  aria-label="Close modal"
+                >
+                  <XIcon />
+                </button>
+              </div>
+            </div>
+
+            {/* Filter and Search Controls */}
+            <div className="moments-controls-bar">
+              <div className="moments-search-box">
+                <SearchIcon />
+                <input
+                  type="text"
+                  placeholder="Search in saved moments..."
+                  value={momentsSearch}
+                  onChange={(e) => setMomentsSearch(e.target.value)}
+                  aria-label="Search saved moments"
+                />
+                {momentsSearch && (
+                  <button
+                    type="button"
+                    className="clear-search-mini"
+                    onClick={() => setMomentsSearch("")}
+                  >
+                    <XIcon />
+                  </button>
+                )}
+              </div>
+              <div className="moments-filter-pills">
+                <button
+                  type="button"
+                  className={`filter-pill ${momentsFilter === "all" ? "active" : ""}`}
+                  onClick={() => setMomentsFilter("all")}
+                >
+                  All ({starredMessages.length})
+                </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${momentsFilter === "titli" ? "active" : ""}`}
+                  onClick={() => setMomentsFilter("titli")}
+                >
+                  🦋 Titli ({starredMessages.filter((m) => m.companion !== "bhanvra").length})
+                </button>
+                <button
+                  type="button"
+                  className={`filter-pill ${momentsFilter === "bhanvra" ? "active" : ""}`}
+                  onClick={() => setMomentsFilter("bhanvra")}
+                >
+                  🐝 Bhanvra ({starredMessages.filter((m) => m.companion === "bhanvra").length})
+                </button>
+              </div>
+            </div>
+
+            {/* Moments List */}
+            <div className="moments-list-scroll">
+              {loadingStarred ? (
+                <div className="moments-loading-state">
+                  <span className="mini-spinner" />
+                  <p>Loading your saved moments...</p>
+                </div>
+              ) : filteredMoments.length === 0 ? (
+                <div className="moments-empty-state">
+                  <div className="moments-empty-icon">
+                    <StarIcon size={32} />
+                  </div>
+                  <h4>No saved moments {momentsSearch ? "matching your search" : "yet"}</h4>
+                  <p>
+                    {momentsSearch
+                      ? "Try searching for a different keyword."
+                      : "Tap the ⭐ Star button on any message during chat to save your favorite lines here forever!"}
+                  </p>
+                </div>
+              ) : (
+                filteredMoments.map((moment) => {
+                  const isUser = moment.role === "user";
+                  const comp = moment.companion === "bhanvra" ? "bhanvra" : "titli";
+                  const speakerName = isUser
+                    ? "You"
+                    : comp === "bhanvra"
+                    ? "Bhanvra"
+                    : "Titli";
+
+                  return (
+                    <article key={moment.id} className={`moment-card ${comp}`}>
+                      <div className="moment-card-header">
+                        <div className="moment-author">
+                          <CompanionAvatar companion={isUser ? "user" : comp} size={28} />
+                          <div className="moment-author-info">
+                            <span className="moment-speaker">{speakerName}</span>
+                            <time className="moment-time">
+                              {formatTimestamp(moment.created_at)}
+                            </time>
+                          </div>
+                        </div>
+                        <div className="moment-card-actions">
+                          <button
+                            type="button"
+                            className="moment-action-btn"
+                            onClick={() => handleCopyMessage(moment.content, `moment-${moment.id}`)}
+                            title="Copy quote"
+                            aria-label="Copy quote"
+                          >
+                            <CopyIcon />
+                          </button>
+                          {moment.session_id && (
+                            <button
+                              type="button"
+                              className="moment-action-btn jump-btn"
+                              onClick={() => handleJumpToSession(moment.session_id)}
+                              title="Jump to this chat"
+                              aria-label="Jump to this chat"
+                            >
+                              Jump ↗
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            className="moment-action-btn unstar-btn"
+                            onClick={() => handleUnstarFromModal(moment.id)}
+                            title="Remove from saved moments"
+                            aria-label="Remove from saved moments"
+                          >
+                            <StarIcon filled size={14} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="moment-quote-body">
+                        <p>{moment.content}</p>
+                      </div>
+
+                      {moment.image_url && (
+                        <div
+                          className="moment-image-preview"
+                          onClick={() => setLightboxImage(moment.image_url)}
+                          title="Click to view full photo"
+                        >
+                          <img src={moment.image_url} alt="Saved moment attachment" loading="lazy" />
+                          <span className="moment-photo-tag">📷 Photo Moment</span>
+                        </div>
+                      )}
+                    </article>
+                  );
+                })
+              )}
+            </div>
+
+            <div className="wide-modal-footer">
+              <span className="modal-footer-hint">
+                💡 Starred messages are permanently protected from automated retention cleanup.
+              </span>
+              <button
+                type="button"
+                className="ghost-button modal-done-btn"
+                onClick={() => setMomentsModalOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Wallpaper & Ambience Modal */}
+      {wallpaperModalOpen && (
+        <div className="modal-backdrop" onClick={() => setWallpaperModalOpen(false)}>
+          <div
+            className="modal-card wide-modal wallpaper-modal"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="wallpaper-modal-title"
+          >
+            <div className="wide-modal-header">
+              <div className="wide-modal-title-wrap">
+                <div className="modal-icon-badge palette-badge">
+                  <PaletteIcon size={20} />
+                </div>
+                <div>
+                  <h3 id="wallpaper-modal-title">Chat Wallpaper & Ambience</h3>
+                  <p className="modal-subtitle">
+                    Select a luxury ambient theme or upload your custom background
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="ghost-button icon-only modal-close-btn"
+                onClick={() => setWallpaperModalOpen(false)}
+                aria-label="Close modal"
+              >
+                <XIcon />
+              </button>
+            </div>
+
+            <div className="wallpaper-content-scroll">
+              {/* Presets Grid */}
+              <div className="wallpaper-section-title">
+                <span>Preset Atmosphere Themes</span>
+              </div>
+              <div className="wallpaper-presets-grid">
+                {WALLPAPER_PRESETS.map((preset) => {
+                  const isActive = wallpaperTheme === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      className={`wallpaper-preset-card ${isActive ? "active" : ""}`}
+                      onClick={() => handleSelectPresetWallpaper(preset.id)}
+                    >
+                      <div
+                        className="preset-preview-thumb"
+                        style={{ background: preset.preview }}
+                      >
+                        {isActive && (
+                          <span className="preset-active-check">
+                            <CheckIcon />
+                          </span>
+                        )}
+                      </div>
+                      <div className="preset-card-meta">
+                        <span className="preset-name">{preset.name}</span>
+                        <span className="preset-desc">{preset.description}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Custom Upload Section */}
+              <div className="wallpaper-section-title">
+                <span>Custom Uploaded Wallpaper</span>
+              </div>
+              <div className="custom-wallpaper-panel">
+                <input
+                  type="file"
+                  ref={wallpaperInputRef}
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleWallpaperUpload}
+                />
+                {customWallpaperData ? (
+                  <div className="custom-wallpaper-active-box">
+                    <div className="custom-preview-thumbnail">
+                      <img src={customWallpaperData} alt="Custom wallpaper" />
+                      <button
+                        type="button"
+                        className="remove-wallpaper-btn"
+                        onClick={handleRemoveCustomWallpaper}
+                        title="Remove custom wallpaper"
+                      >
+                        <TrashIcon /> Remove
+                      </button>
+                    </div>
+
+                    <div className="wallpaper-sliders-wrap">
+                      <div className="slider-group">
+                        <div className="slider-label-row">
+                          <label htmlFor="blur-slider">Background Blur</label>
+                          <span className="slider-val">{wallpaperBlur}px</span>
+                        </div>
+                        <input
+                          id="blur-slider"
+                          type="range"
+                          min="0"
+                          max="20"
+                          step="1"
+                          value={wallpaperBlur}
+                          onChange={(e) => handleChangeBlur(Number(e.target.value))}
+                          className="range-input"
+                        />
+                        <span className="slider-hint">Softens the image so message bubbles stay legible</span>
+                      </div>
+
+                      <div className="slider-group">
+                        <div className="slider-label-row">
+                          <label htmlFor="dim-slider">Dark Overlay Dimming</label>
+                          <span className="slider-val">{wallpaperDim}%</span>
+                        </div>
+                        <input
+                          id="dim-slider"
+                          type="range"
+                          min="10"
+                          max="85"
+                          step="5"
+                          value={wallpaperDim}
+                          onChange={(e) => handleChangeDim(Number(e.target.value))}
+                          className="range-input"
+                        />
+                        <span className="slider-hint">Controls contrast so chat text is crystal clear</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="custom-upload-dropzone"
+                    onClick={() => wallpaperInputRef.current?.click()}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && wallpaperInputRef.current?.click()}
+                  >
+                    <UploadIcon size={28} />
+                    <div className="dropzone-text">
+                      <strong>Click to upload an image</strong>
+                      <span>JPG, PNG, WebP up to 8MB • Instantly applied with blur & dim controls</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="wide-modal-footer">
+              <span className="modal-footer-hint">
+                ✨ Wallpapers are saved locally on your device for instant loading.
+              </span>
+              <button
+                type="button"
+                className="primary-button modal-done-btn"
+                onClick={() => setWallpaperModalOpen(false)}
+              >
+                Done
+              </button>
             </div>
           </div>
         </div>
